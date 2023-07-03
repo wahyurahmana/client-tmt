@@ -1,0 +1,177 @@
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+// import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
+
+const defaultTheme = createTheme();
+
+export default function SignUp() {
+  const navigate = useNavigate();
+
+  const [teams, setTeams] = useState([]);
+  const [timId, setTimId] = React.useState('');
+  const [dataRegister, setDataRegister] = useState({
+
+  });
+
+  const registerAPI = async () => {
+    try {
+      const result = await axios.post('http://localhost:3030/register',{...dataRegister, teamId: timId});
+      navigate('/login')
+      return result;
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }
+  }
+  
+  const getDataTeams = async () => {
+    try {
+      const result = await axios.get('http://localhost:3030/teams');
+      setTeams(result.data.data.teams);
+      return result;
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    }
+  }
+  
+  const handleChangeTeam = (event) => {
+    setTimId(event.target.value);
+  };
+
+  const handleOnChange = (e) =>{
+    const {name, value} = e.target
+    setDataRegister({...dataRegister, [name] : value});
+  }
+
+  useEffect(() => {
+    getDataTeams()
+  },[])
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    registerAPI();
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  name="idBadge"
+                  required
+                  fullWidth
+                  id="idBadge"
+                  label="Id Badge"
+                  autoFocus
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="noHP"
+                  label="No HP"
+                  name="noHP"
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <InputLabel id="teamId-label">Team</InputLabel>
+                <Select
+                  labelId="teamId-label"
+                  id="teamId"
+                  value={timId}
+                  label="Team"
+                  name="teamId"
+                  onChange={handleChangeTeam}
+                >
+                  {teams.map(el => <MenuItem value={el.id} key={el.id}>{el.nama}</MenuItem>)}
+                </Select>
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to="/login">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
+}
