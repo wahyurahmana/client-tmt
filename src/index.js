@@ -11,11 +11,31 @@ import ErrorPage from './pages/errorPage';
 import SignUpPage from './pages/signupPage';
 import SignInPage from './pages/signInPage';
 import Dashboard from './pages/dashboardPage';
+import ToolTab from './components/toolsTab';
+import ActivityTab from './components/activitiesTab';
+import FormTool from './components/formTool';
+import FormActivity from './components/formActivity';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard />,
+    children : [
+      {
+        index: true,
+        path: 'tools',
+        element : <ToolTab />
+      }, {
+        path: 'activities',
+        element : <ActivityTab />
+      }, {
+        path: 'form-tool',
+        element : <FormTool />
+      }, {
+        path: 'form-activity',
+        element : <FormActivity />
+      }
+    ],
     errorElement: <ErrorPage />,
   },{
     path: 'register',

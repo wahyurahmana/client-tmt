@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,28 +11,40 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [dataLogin, setDataLogin] = useState({});
+  const checkToken = async () => {
+    try {
+      await axios({
+        method: 'GET',
+        url: 'http://localhost:3030/tools',
+        headers : {
+          Authorization: localStorage.getItem('access_token')
+        }
+      })
+      navigate('/tools');
+    } catch (error) {
+      navigate('/login');
+    }
+  }
+
+  useEffect(() => {
+    checkToken();
+  },[])
 
   const loginAPI = async () => {
     try {
       const result = await axios.post('http://localhost:3030/login',dataLogin);
       localStorage.setItem('access_token', `Bearer ${result.data.token}`);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Success Login',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      navigate('/tools')
       return result;
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -76,7 +88,7 @@ export default function SignIn() {
               required
               fullWidth
               id="idBadge"
-              label="idBadge"
+              label="id Badge"
               name="idBadge"
               autoFocus
               onChange={handleOnChange}

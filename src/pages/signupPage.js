@@ -25,9 +25,25 @@ export default function SignUp() {
 
   const [teams, setTeams] = useState([]);
   const [timId, setTimId] = React.useState('');
-  const [dataRegister, setDataRegister] = useState({
+  const [dataRegister, setDataRegister] = useState({});
+  const checkToken = async () => {
+    try {
+      await axios({
+        method: 'GET',
+        url: 'http://localhost:3030/tools',
+        headers : {
+          Authorization: localStorage.getItem('access_token')
+        }
+      })
+      navigate('/tools');
+    } catch (error) {
+      navigate('/register');
+    }
+  }
 
-  });
+  useEffect(() => {
+    checkToken();
+  },[])
 
   const registerAPI = async () => {
     try {
@@ -35,7 +51,6 @@ export default function SignUp() {
       navigate('/login')
       return result;
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -140,7 +155,7 @@ export default function SignUp() {
                   onChange={handleOnChange}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <InputLabel id="teamId-label">Team</InputLabel>
                 <Select
                   labelId="teamId-label"
@@ -149,6 +164,7 @@ export default function SignUp() {
                   label="Team"
                   name="teamId"
                   onChange={handleChangeTeam}
+                  fullWidth
                 >
                   {teams.map(el => <MenuItem value={el.id} key={el.id}>{el.nama}</MenuItem>)}
                 </Select>
