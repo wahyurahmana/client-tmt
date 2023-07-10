@@ -15,6 +15,7 @@ import ToolTab from './components/toolsTab';
 import ActivityTab from './components/activitiesTab';
 import FormTool from './components/formTool';
 import FormActivity from './components/formActivity';
+import FormEditActivity from './components/formEditActivity';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
       }, {
         path: 'form-activity',
         element : <FormActivity />
+      }, {
+        path: 'edit-activity/:activityId',
+        element : <FormEditActivity />
       }
     ],
     errorElement: <ErrorPage />,

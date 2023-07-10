@@ -50,7 +50,7 @@ export default function FormTool() {
       }}
     >
       <Typography component="h1" variant="h5">
-        ADD TOOL
+        TAMBAH ALAT
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmitTool}>
         <TextField
@@ -60,16 +60,6 @@ export default function FormTool() {
           id="nama"
           label="Nama Alat"
           name="nama"
-          onChange={handleOnChange}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="stok"
-          label="Stok Alat"
-          name="stok"
-          type='number'
           onChange={handleOnChange}
         />
         <TextField
@@ -89,7 +79,7 @@ export default function FormTool() {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Add
+          TAMBAH
         </Button>
       </Box>
     </Box>

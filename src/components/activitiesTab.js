@@ -47,7 +47,6 @@ function a11yProps(index) {
 
 async function changeStatusActivityAPI(id, status) {
   try {
-    console.log(id, status);
     const result = await axios({
       method : 'PATCH',
       url: 'http://localhost:3030/activities/'+id,
@@ -107,6 +106,41 @@ export default function ActivityTab() {
     }
   }
 
+  const deleteActivityByTeamIdPemberi = (activityId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios({
+          method : 'DELETE',
+          url: 'http://localhost:3030/activities/'+activityId,
+          headers: {
+            Authorization: localStorage.getItem('access_token')
+          }
+        });
+        getAllActivities();
+        Swal.fire(
+          'Deleted!',
+          'Your data has been deleted.',
+          'success'
+        )
+      }
+    }).catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    })
+}
+
   useEffect(() => {
     getAllActivities()
   }, [])
@@ -134,7 +168,7 @@ export default function ActivityTab() {
           textAlign: 'center',
           fontSize: '0.875rem',
           fontWeight: '700',
-        }} onClick={() => navigate('/form-activity')}>Add Activity</Button>
+        }} onClick={() => navigate('/form-activity')}>Tambah Alat Dipinjam</Button>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -150,8 +184,8 @@ export default function ActivityTab() {
                 <TableCell>Nama Alat</TableCell>
                 <TableCell>Peminjam</TableCell>
                 <TableCell>Pemberi</TableCell>
+                <TableCell>Dibuat Pada</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Jumlah</TableCell>
                 <TableCell>Foto Alat</TableCell>
                 <TableCell>Aksi</TableCell>
               </TableRow>
@@ -167,11 +201,11 @@ export default function ActivityTab() {
                   </TableCell>
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
+                  <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1]}</TableCell>
                   <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell>
-                  <TableCell>{row.quantity}</TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
                   <TableCell>
-                    <IconButton aria-label="delete">
+                    <IconButton aria-label="delete" onClick={() => { deleteActivityByTeamIdPemberi(row.id) }}>
                       <DeleteIcon />
                     </IconButton>
                     <IconButton aria-label="edit">
@@ -192,8 +226,8 @@ export default function ActivityTab() {
                 <TableCell>Nama Alat</TableCell>
                 <TableCell>Peminjam</TableCell>
                 <TableCell>Pemberi</TableCell>
+                <TableCell>Dibuat Pada</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Jumlah</TableCell>
                 <TableCell>Foto Alat</TableCell>
               </TableRow>
             </TableHead>
@@ -208,8 +242,8 @@ export default function ActivityTab() {
                   </TableCell>
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
+                  <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1]}</TableCell>
                   <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell>
-                  <TableCell>{row.quantity}</TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
                 </TableRow>
               ))}

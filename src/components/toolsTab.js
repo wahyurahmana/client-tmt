@@ -38,24 +38,39 @@ export default function ToolTab() {
     }
   }
 
-  const deleteToolByTeamIdHandler = async (toolId) => {
-    try {
-      await axios({
-        method : 'DELETE',
-        url: 'http://localhost:3030/tools/'+toolId,
-        headers: {
-          Authorization: localStorage.getItem('access_token')
-        }
-      });
-      getDataTools();
-    } catch (error) {
+  const deleteToolByTeamIdHandler = (toolId) => {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios({
+            method : 'DELETE',
+            url: 'http://localhost:3030/tools/'+toolId,
+            headers: {
+              Authorization: localStorage.getItem('access_token')
+            }
+          });
+          getDataTools();
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }
+      }).catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          footer: '<a href="">Why do I have this issue?</a>'
+        })
       })
-    }
   }
   useEffect(() => {
     getDataTools();
@@ -79,10 +94,10 @@ export default function ToolTab() {
           textAlign: 'center',
           fontSize: '0.875rem',
           fontWeight: '700',
-        }} onClick={() => navigate('/form-tool')}>Add Tool</Button>
+        }} onClick={() => navigate('/form-tool')}>Tambah Alat</Button>
       <ImageList sx={{ width: '100%'}}>
         {dataTools.map((item) => (
-          <ImageListItem key={item.img}>
+          <ImageListItem key={item.id}>
             <img
               src= {item.foto}
               srcSet= {item.foto}
@@ -91,7 +106,6 @@ export default function ToolTab() {
             />
             <ImageListItemBar
               title={item.nama}
-              subtitle={`Stok ${item.stok}`}
               actionIcon={
                 <>
                 <IconButton aria-label="delete" color='error' onClick={() => {

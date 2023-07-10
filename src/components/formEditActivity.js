@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { Box, Button, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function FormActivity() {
   const navigate = useNavigate();
+  const {activityId} = useParams()
+  console.log(activityId, 'useParams');
 
   const [dataUserList, setDatauserList] = React.useState({
     listPemberi: [],
@@ -113,7 +115,7 @@ export default function FormActivity() {
       }}
     >
       <Typography component="h1" variant="h5">
-        ADD ACTIVITY
+        EDIT ACTIVITY
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmitActivity}>
         <InputLabel id="idTool-label">Tool</InputLabel>

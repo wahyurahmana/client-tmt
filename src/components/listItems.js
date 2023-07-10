@@ -15,13 +15,13 @@ export default function MainListItems(){
           <ListItemIcon>
             <ConstructionIcon />
           </ListItemIcon>
-          <ListItemText primary="Tools" />
+          <ListItemText primary="Alat" />
         </ListItemButton>
         <ListItemButton onClick={() => navigate('activities')}>
           <ListItemIcon>
             <AutoStoriesIcon />
           </ListItemIcon>
-          <ListItemText primary="Activities" />
+          <ListItemText primary="Aktivitas" />
         </ListItemButton>
         <ListItemButton onClick={() => {
           localStorage.clear();
@@ -30,7 +30,7 @@ export default function MainListItems(){
           <ListItemIcon>
             <MeetingRoomIcon />
           </ListItemIcon>
-          <ListItemText primary="Logout" />
+          <ListItemText primary="Keluar" />
         </ListItemButton>
       </React.Fragment>
     )

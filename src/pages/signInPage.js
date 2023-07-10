@@ -88,7 +88,7 @@ export default function SignIn() {
               required
               fullWidth
               id="idBadge"
-              label="id Badge"
+              label="Id Badge"
               name="idBadge"
               autoFocus
               onChange={handleOnChange}

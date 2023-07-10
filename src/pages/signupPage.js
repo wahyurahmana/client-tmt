@@ -22,6 +22,17 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   const [teams, setTeams] = useState([]);
   const [timId, setTimId] = React.useState('');
@@ -48,6 +59,10 @@ export default function SignUp() {
   const registerAPI = async () => {
     try {
       const result = await axios.post('http://localhost:3030/register',{...dataRegister, teamId: timId});
+      Toast.fire({
+        icon: 'success',
+        title: 'Singup successfully'
+      })
       navigate('/login')
       return result;
     } catch (error) {
