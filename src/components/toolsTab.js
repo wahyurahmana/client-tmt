@@ -113,7 +113,9 @@ export default function ToolTab() {
                   }}>
                     <DeleteIcon/>
                   </IconButton>
-                  <IconButton aria-label="edit" color='primary'>
+                  <IconButton aria-label="edit" color='primary' onClick={() => {
+                    navigate(`/tools/${item.id}`)
+                  }}>
                     <EditIcon />
                   </IconButton>
                 </>

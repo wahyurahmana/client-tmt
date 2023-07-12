@@ -14,8 +14,9 @@ import Dashboard from './pages/dashboardPage';
 import ToolTab from './components/toolsTab';
 import ActivityTab from './components/activitiesTab';
 import FormTool from './components/formTool';
+import FormEditTool from './components/formEditTool';
 import FormActivity from './components/formActivity';
-import FormEditActivity from './components/formEditActivity';
+import ChangePassword from './components/changePassword';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         path: 'tools',
         element : <ToolTab />
       }, {
+        index: true,
+        path: 'tools/:toolId',
+        element : <FormEditTool />
+      }, {
         path: 'activities',
         element : <ActivityTab />
       }, {
@@ -36,9 +41,9 @@ const router = createBrowserRouter([
         path: 'form-activity',
         element : <FormActivity />
       }, {
-        path: 'edit-activity/:activityId',
-        element : <FormEditActivity />
-      }
+        path: 'change-password',
+        element : <ChangePassword />
+      },
     ],
     errorElement: <ErrorPage />,
   },{

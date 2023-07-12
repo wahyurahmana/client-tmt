@@ -6,6 +6,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { useNavigate } from 'react-router-dom';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import LockResetIcon from '@mui/icons-material/LockReset';
 
 export default function MainListItems(){
   const navigate = useNavigate();
@@ -22,6 +23,14 @@ export default function MainListItems(){
             <AutoStoriesIcon />
           </ListItemIcon>
           <ListItemText primary="Aktivitas" />
+        </ListItemButton>
+        <ListItemButton onClick={() => {
+          navigate('/change-password');
+        }}>
+          <ListItemIcon>
+            <LockResetIcon />
+          </ListItemIcon>
+          <ListItemText primary="Ubah Password" />
         </ListItemButton>
         <ListItemButton onClick={() => {
           localStorage.clear();

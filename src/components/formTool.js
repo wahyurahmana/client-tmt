@@ -32,12 +32,16 @@ export default function FormTool() {
       });
       navigate('/tools');
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+      if(error.response.status === 401){
+        navigate('/login')
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          footer: '<a href="">Why do I have this issue?</a>'
+        });
+      }
     }
   }
   return (
