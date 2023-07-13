@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function ToolTab() {
@@ -95,35 +95,37 @@ export default function ToolTab() {
           fontSize: '0.875rem',
           fontWeight: '700',
         }} onClick={() => navigate('/form-tool')}>Tambah Alat</Button>
-      <ImageList sx={{ width: '100%'}}>
-        {dataTools.map((item) => (
-          <ImageListItem key={item.id}>
-            <img
-              src= {item.foto}
-              srcSet= {item.foto}
-              alt={item.nama}
-              loading="lazy"
-            />
-            <ImageListItemBar
-              title={item.nama}
-              actionIcon={
-                <>
-                <IconButton aria-label="delete" color='error' onClick={() => {
-                    deleteToolByTeamIdHandler(item.id)
-                  }}>
-                    <DeleteIcon/>
-                  </IconButton>
-                  <IconButton aria-label="edit" color='primary' onClick={() => {
-                    navigate(`/tools/${item.id}`)
-                  }}>
-                    <EditIcon />
-                  </IconButton>
-                </>
-              }
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+        <Grid container>
+          {dataTools.map((item) => (
+            <Grid item xs={12} md={6} key={item.id}>
+              <ImageListItem>
+                <img
+                  src= {item.foto}
+                  srcSet= {item.foto}
+                  alt={item.nama}
+                  loading="lazy"
+                />
+                <ImageListItemBar
+                  title={item.nama}
+                  actionIcon={
+                    <>
+                    <IconButton aria-label="delete" color='error' onClick={() => {
+                        deleteToolByTeamIdHandler(item.id)
+                      }}>
+                        <DeleteIcon/>
+                      </IconButton>
+                      <IconButton aria-label="edit" color='primary' onClick={() => {
+                        navigate(`/tools/${item.id}`)
+                      }}>
+                        <EditIcon />
+                      </IconButton>
+                    </>
+                  }
+                />
+              </ImageListItem>
+            </Grid>
+          ))}
+        </Grid>
     </>
   );
 }
