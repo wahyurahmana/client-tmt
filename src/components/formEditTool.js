@@ -117,7 +117,7 @@ export default function FormEditTool() {
           src={!detailTool.foto ? '' : detailTool.foto}
           sx={{ width: 56, height: 56 }}
         />}
-        *File Tidak Boleh Lebih Dari 512kb
+        *File Tidak Boleh Lebih Dari 5 MB
         <Button
           type="submit"
           fullWidth

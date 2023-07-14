@@ -15,6 +15,7 @@ export default function FormActivity() {
   const [idTool, setIdTool] = React.useState('');
   const [peminjam, setPeminjam] = React.useState('');
   const [pemberi, setPemberi] = React.useState('');
+  const [buktiPinjam, setBuktiPinjam] = React.useState(null);
   const [createdAt, setCreatedAt] = React.useState('');
 
   const getDataTools = async () =>{
@@ -81,6 +82,10 @@ export default function FormActivity() {
     setCreatedAt(e.target.value);
   }
 
+  const handleOnChangeUploadFotoBuktiPinjam = (value) =>{
+    setBuktiPinjam(value);
+  }
+
   const handleSubmitActivity = async (e) => {
     try {
       e.preventDefault();
@@ -88,8 +93,17 @@ export default function FormActivity() {
       await axios({
         method : 'POST',
         url: 'http://localhost:3030/activities',
-        data: {toolId: idTool, createdAt, peminjamEmail: peminjam.split('$').length === 2 ? peminjam.split('$')[0] : '', teamPeminjam: peminjam.split('$').length === 2 ? peminjam.split('$')[1] : '', pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '', teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : ''},
+        data: {
+          toolId: idTool,
+          createdAt,
+          peminjamEmail: peminjam.split('$').length === 2 ? peminjam.split('$')[0] : '',
+          teamPeminjam: peminjam.split('$').length === 2 ? peminjam.split('$')[1] : '',
+          pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '',
+          teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : '',
+          buktiPinjam
+        },
         headers: {
+          'Content-Type': 'multipart/form-data',
           Authorization: localStorage.getItem('access_token'),
         }
       });
@@ -120,9 +134,8 @@ export default function FormActivity() {
         ADD ACTIVITY
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmitActivity}>
-        <InputLabel id="idTool-label">Tool</InputLabel>
+        <InputLabel>Tool</InputLabel>
         <Select
-          labelId="idTool-label"
           id="idTool"
           value={idTool}
           label="Tool"
@@ -133,7 +146,7 @@ export default function FormActivity() {
         >
           {dataTools.map(el => <MenuItem value={el.id} key={el.id}>{el.nama}</MenuItem>)}
         </Select>
-        <InputLabel id="idTool-label">Dibuat - WITA</InputLabel>
+        <InputLabel>Dibuat - WITA</InputLabel>
         <TextField
           margin="normal"
           required
@@ -143,9 +156,8 @@ export default function FormActivity() {
           type='datetime-local'
           onChange={handleChangeTime}
         />
-        <InputLabel id="teamId-label">Peminjam</InputLabel>
+        <InputLabel>Peminjam</InputLabel>
         <Select
-          labelId="peminjam-label"
           id="peminjam"
           value={peminjam}
           label="Peminjam"
@@ -156,9 +168,8 @@ export default function FormActivity() {
         >
           {dataUserList.listPeminjam.map(el => <MenuItem value={`${el.email}$${el.team_id}`} key={el.email}>{`${el.email}---${el.nama}`}</MenuItem>)}
         </Select>
-        <InputLabel id="teamId-label">Pemberi</InputLabel>
+        <InputLabel>Pemberi</InputLabel>
         <Select
-          labelId="pemberi-label"
           id="pemberi"
           value={pemberi}
           label="Pemberi"
@@ -169,6 +180,18 @@ export default function FormActivity() {
         >
           {dataUserList.listPemberi.map(el => <MenuItem value={`${el.email}$${el.team_id}`} key={el.email}>{`${el.email}---${el.nama}`}</MenuItem>)}
         </Select>
+        <InputLabel>Bukti Peminjam</InputLabel>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="foto"
+          type='file'
+          onChange={(e) => {
+            handleOnChangeUploadFotoBuktiPinjam(e.target.files[0]);
+          }}
+        />
+        *File Tidak Boleh Lebih Dari 5 MB
         <Button
           type="submit"
           fullWidth

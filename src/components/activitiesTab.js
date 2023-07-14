@@ -5,7 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Avatar, Button, Grid, IconButton, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { Alert, Avatar, Button, Grid, IconButton, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -220,6 +220,7 @@ export default function ActivityTab() {
                 <TableCell>Dibuat Pada</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Foto Alat</TableCell>
+                <TableCell>Bukti Pinjam</TableCell>
                 <TableCell>Aksi</TableCell>
               </TableRow>
             </TableHead>
@@ -237,6 +238,7 @@ export default function ActivityTab() {
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1]}</TableCell>
                   <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
+                  <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
                   <TableCell>
                     <IconButton aria-label="delete" onClick={() => { deleteActivityByTeamIdPemberi(row.id) }}>
                       <DeleteIcon />
@@ -259,6 +261,7 @@ export default function ActivityTab() {
                 <TableCell>Dibuat Pada</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Foto Alat</TableCell>
+                <TableCell>Bukti Pinjam</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -273,8 +276,9 @@ export default function ActivityTab() {
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1]}</TableCell>
-                  <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell>
+                  <TableCell>{row.status ? <Alert severity="success">Selesai</Alert> : <Alert severity="error">Kembalikan</Alert> }</TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
+                  <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -76,7 +76,7 @@ export default function FormTool() {
             handleOnChangeUploadFoto(e.target.files[0]);
           }}
         />
-        *File Tidak Boleh Lebih Dari 512kb
+        *File Tidak Boleh Lebih Dari 5 MB
         <Button
           type="submit"
           fullWidth
