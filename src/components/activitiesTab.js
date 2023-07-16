@@ -10,8 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CreateIcon from '@mui/icons-material/Create';
-import SearchIcon from '@mui/icons-material/Search';
+import BasicModal from './modalView'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,36 +45,14 @@ function a11yProps(index) {
   };
 }
 
-async function changeStatusActivityAPI(id, status) {
-  try {
-    const result = await axios({
-      method : 'PATCH',
-      url: 'http://localhost:3030/activities/'+id,
-      data: {
-        status
-      },
-      headers: {
-        Authorization: localStorage.getItem('access_token'),
-      }
-    });
-    Swal.fire(result.data.message);
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: error.response.data.message,
-      footer: '<a href="">Why do I have this issue?</a>'
-    })
-  }
-}
+// function StatusChecked({status, idActivity}) {
+//   if(status){
+//     return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)} defaultChecked/>Selesai</>
+//   }else{
+//     return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)}/>Selesai</>
+//   }
+// }
 
-function StatusChecked({status, idActivity}) {
-  if(status){
-    return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)} defaultChecked/>Selesai</>
-  }else{
-    return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)}/>Selesai</>
-  }
-}
 
 export default function ActivityTab() {
   const navigate = useNavigate();
@@ -86,7 +63,6 @@ export default function ActivityTab() {
   const [listInitDipinjam, setListInitDipinjam] = useState([])
 
   const [search, setSearch] = useState('');
-  const [tempsearch, setTempSearch] = useState('');
 
   const getAllActivities = async () => {
     try {
@@ -198,7 +174,6 @@ export default function ActivityTab() {
             size="small"
             name='search'
             onChange={(e) => setSearch(e.target.value)}
-            // InputProps={{endAdornment: <IconButton aria-label="delete" onClick={() => {setSearch(tempsearch) }}><SearchIcon></SearchIcon></IconButton>}}
           />
           </Grid>
         </Grid>
@@ -221,6 +196,7 @@ export default function ActivityTab() {
                 <TableCell>Status</TableCell>
                 <TableCell>Foto Alat</TableCell>
                 <TableCell>Bukti Pinjam</TableCell>
+                <TableCell>Bukti Terima</TableCell>
                 <TableCell>Aksi</TableCell>
               </TableRow>
             </TableHead>
@@ -236,9 +212,11 @@ export default function ActivityTab() {
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1]}</TableCell>
-                  <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell>
+                  {/* <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell> */}
+                  <TableCell><BasicModal status={row.status} idActivity={row.id}/></TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
+                  <TableCell><Avatar alt={row.nama} src={row.bukti_terima} /></TableCell>
                   <TableCell>
                     <IconButton aria-label="delete" onClick={() => { deleteActivityByTeamIdPemberi(row.id) }}>
                       <DeleteIcon />

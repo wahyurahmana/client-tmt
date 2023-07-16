@@ -97,7 +97,7 @@ export default function ToolTab() {
         }} onClick={() => navigate('/form-tool')}>Tambah Alat</Button>
         <Grid container>
           {dataTools.map((item) => (
-            <Grid item xs={12} md={6}  key={item.id}>
+            <Grid item xs={12} md={4}  key={item.id}>
               <ImageListItem>
                 <img
                   src= {item.foto}
