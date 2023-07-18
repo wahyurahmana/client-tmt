@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from './modalView'
+import InfoIcon from '@mui/icons-material/Info';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -118,12 +119,16 @@ export default function ActivityTab() {
         )
       }
     }).catch((error) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+      if(error.response.status === 401){
+        navigate('/login')
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.message,
+          footer: '<a href="">Why do I have this issue?</a>'
+        });
+      }
     })
 }
 
@@ -135,7 +140,7 @@ export default function ActivityTab() {
     if(listInitDipinjam.length > 0){
       let filter = [];
       for (let i = 0; i < listInitDipinjam.length; i++) {
-        if(listInitDipinjam[i].nama.includes(search)){
+        if(listInitDipinjam[i].nama.toLowerCase().includes(search.toLowerCase())){
           filter.push(listInitDipinjam[i])
         }        
       }
@@ -145,7 +150,7 @@ export default function ActivityTab() {
     if(listInitPinjaman.length > 0){
       let filter = [];
       for (let i = 0; i < listInitPinjaman.length; i++) {
-        if(listInitPinjaman[i].nama.includes(search)){
+        if(listInitPinjaman[i].nama.toLowerCase().includes(search.toLowerCase())){
           filter.push(listInitPinjaman[i])
         }        
       }
@@ -221,6 +226,9 @@ export default function ActivityTab() {
                     <IconButton aria-label="delete" onClick={() => { deleteActivityByTeamIdPemberi(row.id) }}>
                       <DeleteIcon />
                     </IconButton>
+                    <IconButton aria-label="info" onClick={() => { console.log('detail',row.id) }}>
+                      <InfoIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -240,6 +248,7 @@ export default function ActivityTab() {
                 <TableCell>Status</TableCell>
                 <TableCell>Foto Alat</TableCell>
                 <TableCell>Bukti Pinjam</TableCell>
+                <TableCell>Bukti Terima</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -257,6 +266,7 @@ export default function ActivityTab() {
                   <TableCell>{row.status ? <Alert severity="success">Selesai</Alert> : <Alert severity="error">Kembalikan</Alert> }</TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
                   <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
+                  <TableCell><Avatar alt={row.nama} src={row.bukti_terima} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -53,15 +53,15 @@ export default function BasicModal({status, idActivity}) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{status ? (
+      {status ? (
         <Button variant="outlined" size="small" color='primary'>
           Selesai
         </Button>
       ) : (
-        <Button variant="outlined" size="small" color='warning'>
+        <Button variant="outlined" size="small" color='warning' onClick={handleOpen}>
           Pending
         </Button>
-      )}</Button>
+      )}
       <Modal
         open={open}
         onClose={handleClose}

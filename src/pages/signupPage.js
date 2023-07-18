@@ -130,27 +130,6 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="idBadge"
-                  required
-                  fullWidth
-                  id="idBadge"
-                  label="Id Badge"
-                  autoFocus
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="noHP"
-                  label="No HP"
-                  name="noHP"
-                  onChange={handleOnChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
                   required
                   fullWidth
                   id="email"
@@ -159,7 +138,7 @@ export default function SignUp() {
                   onChange={handleOnChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
@@ -167,6 +146,17 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="noHP"
+                  label="No HP"
+                  name="noHP"
+                  placeholder='6281234567890'
                   onChange={handleOnChange}
                 />
               </Grid>
