@@ -10,10 +10,15 @@ export default function FormEditTool() {
   // const [dataTool, setDataTool] = React.useState({});
   const [detailTool, setDetailTool] = React.useState({});
   const [namaTool, setNamaTool] = React.useState('');
+  const [stockAlat, setStockAlat] = React.useState('');
   const [fotoTool, setFotoTool] = React.useState(null);
 
   const handleOnChangeNama = (e) =>{
     setNamaTool(e.target.value);
+  }
+
+  const handleOnChangeStockAlat = (e) =>{
+    setStockAlat(e.target.value);
   }
 
   const handleOnChangeUploadFoto = (value) =>{
@@ -31,6 +36,7 @@ export default function FormEditTool() {
       });
       setDetailTool(result.data.data.tool);
       setNamaTool(result.data.data.tool.nama);
+      setStockAlat(result.data.data.tool.stock);
     } catch (error) {
       if(error.response.status === 401){
         navigate('/login')
@@ -53,6 +59,7 @@ export default function FormEditTool() {
         url: `http://localhost:3030/tools/${toolId}`,
         data: {
           nama: namaTool,
+          stock: stockAlat,
           foto: fotoTool,
         },
         headers: {
@@ -101,6 +108,17 @@ export default function FormEditTool() {
           name="nama"
           onChange={handleOnChangeNama}
           value={namaTool}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="stock"
+          label="Stock Alat"
+          name="stock"
+          type='number'
+          onChange={handleOnChangeStockAlat}
+          value={stockAlat}
         />
         <TextField
           margin="normal"

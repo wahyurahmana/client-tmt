@@ -13,6 +13,7 @@ export default function FormActivity() {
   });
   const [dataTools, setDataTools] = React.useState([]);
   const [idTool, setIdTool] = React.useState('');
+  const [quantity, setQuantity] = React.useState(1);
   const [peminjam, setPeminjam] = React.useState('');
   const [pemberi, setPemberi] = React.useState('');
   const [buktiPinjam, setBuktiPinjam] = React.useState(null);
@@ -82,6 +83,10 @@ export default function FormActivity() {
     setCreatedAt(e.target.value);
   }
 
+  const handleChangeQuantity = (e) =>{
+    setQuantity(e.target.value);
+  }
+
   const handleOnChangeUploadFotoBuktiPinjam = (value) =>{
     setBuktiPinjam(value);
   }
@@ -100,7 +105,8 @@ export default function FormActivity() {
           teamPeminjam: peminjam.split('$').length === 2 ? peminjam.split('$')[1] : '',
           pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '',
           teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : '',
-          buktiPinjam
+          buktiPinjam,
+          quantity
         },
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -155,6 +161,17 @@ export default function FormActivity() {
           name="createdAt"
           type='datetime-local'
           onChange={handleChangeTime}
+        />
+        <InputLabel>Jumlah</InputLabel>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="quantity"
+          name="quantity"
+          type='number'
+          value={quantity}
+          onChange={handleChangeQuantity}
         />
         <InputLabel>Peminjam</InputLabel>
         <Select

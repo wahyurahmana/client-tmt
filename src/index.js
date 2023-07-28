@@ -17,6 +17,7 @@ import FormTool from './components/formTool';
 import FormEditTool from './components/formEditTool';
 import FormActivity from './components/formActivity';
 import ChangePassword from './components/changePassword';
+import DetailActivityTab from './components/detailActivityTab';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,9 @@ const router = createBrowserRouter([
       }, {
         path: 'change-password',
         element : <ChangePassword />
+      }, {
+        path: 'detail-activity/:activityId',
+        element : <DetailActivityTab />
       },
     ],
     errorElement: <ErrorPage />,

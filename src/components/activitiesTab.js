@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from './modalView'
 import InfoIcon from '@mui/icons-material/Info';
+import BurstModeIcon from '@mui/icons-material/BurstMode';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -197,11 +198,9 @@ export default function ActivityTab() {
                 <TableCell>Nama Alat</TableCell>
                 <TableCell>Peminjam</TableCell>
                 <TableCell>Pemberi</TableCell>
-                <TableCell>Dibuat Pada</TableCell>
+                <TableCell>Dipinjam Pada</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Foto Alat</TableCell>
-                <TableCell>Bukti Pinjam</TableCell>
-                <TableCell>Bukti Terima</TableCell>
+                <TableCell>Jumlah</TableCell>
                 <TableCell>Aksi</TableCell>
               </TableRow>
             </TableHead>
@@ -218,16 +217,14 @@ export default function ActivityTab() {
                   <TableCell>{row.info.pemberi.user}</TableCell>
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1].split('+')[0]}</TableCell>
                   {/* <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell> */}
-                  <TableCell><BasicModal status={row.status} idActivity={row.id}/></TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.bukti_terima} /></TableCell>
+                  <TableCell><BasicModal status={row.status} idActivity={row.id} toolId={row.tool_id} quantity={row.quantity}/></TableCell>
+                  <TableCell>{row.quantity}</TableCell>
                   <TableCell>
                     <IconButton aria-label="delete" onClick={() => { deleteActivityByTeamIdPemberi(row.id) }}>
                       <DeleteIcon />
                     </IconButton>
-                    <IconButton aria-label="info" onClick={() => { console.log('detail',row.id) }}>
-                      <InfoIcon />
+                    <IconButton aria-label="info" onClick={() => { navigate(`/detail-activity/${row.id}`) }}>
+                      <BurstModeIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>
@@ -244,11 +241,10 @@ export default function ActivityTab() {
                 <TableCell>Nama Alat</TableCell>
                 <TableCell>Peminjam</TableCell>
                 <TableCell>Pemberi</TableCell>
-                <TableCell>Dibuat Pada</TableCell>
+                <TableCell>Dipinjam Pada</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Foto Alat</TableCell>
-                <TableCell>Bukti Pinjam</TableCell>
-                <TableCell>Bukti Terima</TableCell>
+                <TableCell>Jumlah</TableCell>
+                <TableCell>Aksi</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -264,9 +260,12 @@ export default function ActivityTab() {
                   <TableCell>{row.info.pemberi.user}</TableCell>
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1].split('+')[0]}</TableCell>
                   <TableCell>{row.status ? <Alert severity="success">Selesai</Alert> : <Alert severity="error">Kembalikan</Alert> }</TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.foto} /></TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.bukti_pinjam} /></TableCell>
-                  <TableCell><Avatar alt={row.nama} src={row.bukti_terima} /></TableCell>
+                  <TableCell>{row.quantity}</TableCell>
+                  <TableCell>
+                    <IconButton aria-label="info" onClick={() => { navigate(`/detail-activity/${row.id}`) }}>
+                      <BurstModeIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

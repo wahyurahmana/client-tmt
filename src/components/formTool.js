@@ -70,6 +70,16 @@ export default function FormTool() {
           margin="normal"
           required
           fullWidth
+          id="stock"
+          label="Stok Alat"
+          name="stock"
+          type='number'
+          onChange={handleOnChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
           name="foto"
           type='file'
           onChange={(e) => {

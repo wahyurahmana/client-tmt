@@ -37,33 +37,37 @@ export default function SignUp() {
   const [teams, setTeams] = useState([]);
   const [timId, setTimId] = React.useState('');
   const [dataRegister, setDataRegister] = useState({});
-  const checkToken = async () => {
-    try {
-      await axios({
-        method: 'GET',
-        url: 'http://localhost:3030/tools',
-        headers : {
-          Authorization: localStorage.getItem('access_token')
-        }
-      })
-      navigate('/tools');
-    } catch (error) {
-      navigate('/register');
-    }
-  }
+  // const checkToken = async () => {
+  //   try {
+  //     await axios({
+  //       method: 'GET',
+  //       url: 'http://localhost:3030/tools',
+  //       headers : {
+  //         Authorization: localStorage.getItem('access_token')
+  //       }
+  //     })
+  //     navigate('/tools');
+  //   } catch (error) {
+  //     navigate('/register');
+  //   }
+  // }
 
-  useEffect(() => {
-    checkToken();
-  },[])
+  // useEffect(() => {
+  //   checkToken();
+  // },[])
 
   const registerAPI = async () => {
     try {
-      const result = await axios.post('http://localhost:3030/register',{...dataRegister, teamId: timId});
+      const result = await axios.post('http://localhost:3030/register',{...dataRegister, teamId: timId}, {
+        headers : {
+          Authorization: localStorage.getItem('access_token')
+        }
+      });
       Toast.fire({
         icon: 'success',
-        title: 'Singup successfully'
+        title: result.data.message
       })
-      navigate('/login')
+      navigate('/register')
       return result;
     } catch (error) {
       Swal.fire({

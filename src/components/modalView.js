@@ -20,14 +20,16 @@ const style = {
   p: 4,
 };
 
-async function changeStatusActivityAPI(id, status, buktiTerima) {
+async function changeStatusActivityAPI(id, status, buktiTerima, toolId, quantity) {
   try {
     const result = await axios({
       method : 'PATCH',
       url: 'http://localhost:3030/activities/'+id,
       data: {
         status,
-        buktiTerima
+        buktiTerima,
+        toolId,
+        quantity,
       },
       headers: {
         Authorization: localStorage.getItem('access_token'),
@@ -45,7 +47,7 @@ async function changeStatusActivityAPI(id, status, buktiTerima) {
   }
 }
 
-export default function BasicModal({status, idActivity}) {
+export default function BasicModal({status, idActivity, toolId, quantity}) {
   const navigate = useNavigate()
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -59,7 +61,7 @@ export default function BasicModal({status, idActivity}) {
         </Button>
       ) : (
         <Button variant="outlined" size="small" color='warning' onClick={handleOpen}>
-          Pending
+          Dipinjam
         </Button>
       )}
       <Modal
@@ -79,7 +81,7 @@ export default function BasicModal({status, idActivity}) {
             name="foto"
             type='file'
             onChange={(e) => {
-              changeStatusActivityAPI(idActivity, !status, e.target.files[0]);
+              changeStatusActivityAPI(idActivity, !status, e.target.files[0], toolId, quantity);
               navigate(0)
               handleClose()
             }}

@@ -64,12 +64,16 @@ export default function ToolTab() {
           )
         }
       }).catch((error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        })
+        if(error.response.status === 401){
+          navigate('/login')
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+            footer: '<a href="">Why do I have this issue?</a>'
+          });
+        }
       })
   }
   useEffect(() => {
@@ -107,6 +111,7 @@ export default function ToolTab() {
                 />
                 <ImageListItemBar
                   title={item.nama}
+                  subtitle={`Jumlah: ${item.stock}`}
                   actionIcon={
                     <>
                     <IconButton aria-label="delete" color='error' onClick={() => {
