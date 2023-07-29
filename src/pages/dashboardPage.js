@@ -75,7 +75,7 @@ export default function Dashboard() {
     try {
       await axios({
         method: 'GET',
-        url: 'http://localhost:3030/tools',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
         headers : {
           Authorization: localStorage.getItem('access_token')
         }

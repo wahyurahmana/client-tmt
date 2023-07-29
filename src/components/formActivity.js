@@ -23,7 +23,7 @@ export default function FormActivity() {
     try {
       const result = await axios({
         method : 'GET',
-        url: 'http://localhost:3030/tools',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
         headers: {
           Authorization: localStorage.getItem('access_token')
         }
@@ -46,7 +46,7 @@ export default function FormActivity() {
     try {
       const result = await axios({
         method : 'GET',
-        url: 'http://localhost:3030/users-list',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/users-list`,
         headers: {
           Authorization: localStorage.getItem('access_token')
         }
@@ -97,7 +97,7 @@ export default function FormActivity() {
       // console.log({toolId: idTool, createdAt, quantity, peminjamEmail: peminjam.split('$').length === 2 ? peminjam.split('$')[0] : '', teamPeminjam: peminjam.split('$').length === 2 ? peminjam.split('$')[1] : '', pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '', teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : ''});
       await axios({
         method : 'POST',
-        url: 'http://localhost:3030/activities',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/activities`,
         data: {
           toolId: idTool,
           createdAt,

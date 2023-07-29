@@ -29,7 +29,7 @@ export default function FormEditTool() {
     try {
       const result = await axios({
         method: 'GET',
-        url: `http://localhost:3030/tools/${toolId}`,
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools/${toolId}`,
         headers: {
           Authorization: localStorage.getItem('access_token'),
         },
@@ -56,7 +56,7 @@ export default function FormEditTool() {
       e.preventDefault();
       await axios({
         method : 'PUT',
-        url: `http://localhost:3030/tools/${toolId}`,
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools/${toolId}`,
         data: {
           nama: namaTool,
           stock: stockAlat,

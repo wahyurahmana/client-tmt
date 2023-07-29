@@ -18,7 +18,7 @@ export default function ToolTab() {
     try {
       const result = await axios({
         method : 'GET',
-        url: 'http://localhost:3030/tools',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
         headers: {
           Authorization: localStorage.getItem('access_token')
         }
@@ -51,7 +51,7 @@ export default function ToolTab() {
         if (result.isConfirmed) {
           await axios({
             method : 'DELETE',
-            url: 'http://localhost:3030/tools/'+toolId,
+            url: `${process.env.REACT_APP_HOST_TMT_API}/tools/${toolId}`,
             headers: {
               Authorization: localStorage.getItem('access_token')
             }

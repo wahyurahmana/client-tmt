@@ -24,7 +24,7 @@ async function changeStatusActivityAPI(id, status, buktiTerima, toolId, quantity
   try {
     const result = await axios({
       method : 'PATCH',
-      url: 'http://localhost:3030/activities/'+id,
+      url: `${process.env.REACT_APP_HOST_TMT_API}/activities/${id}`,
       data: {
         status,
         buktiTerima,

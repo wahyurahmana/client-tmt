@@ -19,7 +19,7 @@ export default function ChangePassword() {
     try {
       e.preventDefault()
       const result = await axios({
-        url: 'http://localhost:3030/users/change-password',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/users/change-password`,
         method: 'POST',
         data : {
           oldPassword: data.oldPassword,

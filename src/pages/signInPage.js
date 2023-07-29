@@ -23,7 +23,7 @@ export default function SignIn() {
     try {
       await axios({
         method: 'GET',
-        url: 'http://localhost:3030/tools',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
         headers : {
           Authorization: localStorage.getItem('access_token')
         }
@@ -40,7 +40,7 @@ export default function SignIn() {
 
   const loginAPI = async () => {
     try {
-      const result = await axios.post('http://localhost:3030/login',dataLogin);
+      const result = await axios.post(`${process.env.REACT_APP_HOST_TMT_API}/login`,dataLogin);
       localStorage.setItem('access_token', `Bearer ${result.data.token}`);
       navigate('/tools')
       return result;

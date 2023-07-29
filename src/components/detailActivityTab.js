@@ -15,7 +15,7 @@ export default function DetailTab() {
     try {
       const result = await axios({
         method: 'GET',
-        url: 'http://localhost:3030/activities/'+activityId,
+        url: `${process.env.REACT_APP_HOST_TMT_API}/activities/${activityId}`,
         headers: {
           Authorization : localStorage.getItem('access_token')
         }

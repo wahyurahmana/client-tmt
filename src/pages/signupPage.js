@@ -58,7 +58,7 @@ export default function SignUp() {
 
   const registerAPI = async () => {
     try {
-      const result = await axios.post('http://localhost:3030/register',{...dataRegister, teamId: timId}, {
+      const result = await axios.post(`${process.env.REACT_APP_HOST_TMT_API}/register`,{...dataRegister, teamId: timId}, {
         headers : {
           Authorization: localStorage.getItem('access_token')
         }
@@ -81,7 +81,7 @@ export default function SignUp() {
   
   const getDataTeams = async () => {
     try {
-      const result = await axios.get('http://localhost:3030/teams');
+      const result = await axios.get(`${process.env.REACT_APP_HOST_TMT_API}/teams`);
       setTeams(result.data.data.teams);
       return result;
     } catch (error) {

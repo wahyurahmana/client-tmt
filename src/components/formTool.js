@@ -23,7 +23,7 @@ export default function FormTool() {
       e.preventDefault();
       await axios({
         method : 'POST',
-        url: 'http://localhost:3030/tools',
+        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
         data: dataTool,
         headers: {
           Authorization: localStorage.getItem('access_token'),
