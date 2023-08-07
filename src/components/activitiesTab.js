@@ -77,7 +77,6 @@ export default function ActivityTab() {
       })
       setListPinjaman(result.data.data.listPinjaman);
       setListDipinjam(result.data.data.listDipinjam);
-
       setListInitPinjaman(result.data.data.listPinjaman);
       setListInitDipinjam(result.data.data.listDipinjam);
     } catch (error) {
@@ -241,6 +240,7 @@ export default function ActivityTab() {
                 <TableCell>Nama Alat</TableCell>
                 <TableCell>Peminjam</TableCell>
                 <TableCell>Pemberi</TableCell>
+                <TableCell>Tim</TableCell>
                 <TableCell>Dipinjam Pada</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Jumlah</TableCell>
@@ -258,6 +258,7 @@ export default function ActivityTab() {
                   </TableCell>
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
+                  <TableCell>{row.nama_team}</TableCell>
                   <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1].split('+')[0]}</TableCell>
                   <TableCell>{row.status ? <Alert severity="success">Selesai</Alert> : <Alert severity="error">Kembalikan</Alert> }</TableCell>
                   <TableCell>{row.quantity}</TableCell>
