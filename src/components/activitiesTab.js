@@ -214,7 +214,7 @@ export default function ActivityTab() {
                   </TableCell>
                   <TableCell>{row.info.peminjam.user}</TableCell>
                   <TableCell>{row.info.pemberi.user}</TableCell>
-                  <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1].split('+')[0]}</TableCell>
+                  <TableCell>{row.created_at.split('.')[0].split('T')[0]}@{row.created_at.split('.')[0].split('T')[1].split('+')[0].split(':')[0]}:{row.created_at.split('.')[0].split('T')[1].split('+')[0].split(':')[1]}</TableCell>
                   {/* <TableCell><StatusChecked status={row.status} idActivity={row.id}></StatusChecked></TableCell> */}
                   <TableCell><BasicModal status={row.status} idActivity={row.id} toolId={row.tool_id} quantity={row.quantity}/></TableCell>
                   <TableCell>{row.quantity}</TableCell>
