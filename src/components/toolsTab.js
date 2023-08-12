@@ -8,12 +8,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export default function ToolTab() {
   const navigate = useNavigate();
   const [dataTools, setDataTools] = useState([]);
+  const [dataToolsInit, setDataToolsInit] = useState([]);
+  const [search, setSearch] = useState("");
   const getDataTools = async () =>{
     try {
       const result = await axios({
@@ -24,6 +26,7 @@ export default function ToolTab() {
         }
       });
       setDataTools(result.data.data.tools);
+      setDataToolsInit(result.data.data.tools)
     } catch (error) {
       if(error.response.status === 401){
         navigate('/login')
@@ -80,26 +83,37 @@ export default function ToolTab() {
     getDataTools();
   }, [])
 
+  useEffect(() => {
+    if(dataToolsInit.length > 0){
+      let filter = [];
+      for (let i = 0; i < dataToolsInit.length; i++) {
+        if(dataToolsInit[i].nama.toLowerCase().includes(search.toLowerCase())){
+          filter.push(dataToolsInit[i])
+        }        
+      }
+      setDataTools(filter)
+      filter = []
+    }
+  }, [search])
+
   return (
     <>
-      <Button sx={{
-          mx: 'auto',
-          width: '100%',
-          p: 1,
-          m: 1,
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#101010' : 'grey.50',
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-          border: '1px solid',
-          borderColor: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-          borderRadius: 2,
-          textAlign: 'center',
-          fontSize: '0.875rem',
-          fontWeight: '700',
-        }} onClick={() => navigate('/form-tool')}>Tambah Alat</Button>
-        <Grid container>
+      <Grid container spacing={2} sx={{mt: 2, mx: 'auto'}}>
+        <Grid item xs={12} md={9}>
+          <Button variant="outlined" onClick={() => navigate('/form-tool')} fullWidth size="large">Tambah Alat</Button>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <TextField
+            label="Cari"
+            id="outlined-size-small"
+            placeholder='Cari Alat Disini....'
+            size="small"
+            name='search'
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Grid>
+      </Grid>
+        <Grid container sx={{mt : 2, ml : 2}}>
           {dataTools.map((item) => (
             <Grid item xs={12} md={4}  key={item.id}>
               <ImageListItem>
