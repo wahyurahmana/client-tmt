@@ -16,6 +16,7 @@ export default function FormActivity() {
   const [quantity, setQuantity] = React.useState(1);
   const [peminjam, setPeminjam] = React.useState('');
   const [pemberi, setPemberi] = React.useState('');
+  const [note, setNote] = React.useState('');
   const [buktiPinjam, setBuktiPinjam] = React.useState(null);
   const [createdAt, setCreatedAt] = React.useState('');
 
@@ -87,6 +88,10 @@ export default function FormActivity() {
     setQuantity(e.target.value);
   }
 
+  const handleChangeNote = (e) =>{
+    setNote(e.target.value);
+  }
+
   const handleOnChangeUploadFotoBuktiPinjam = (value) =>{
     setBuktiPinjam(value);
   }
@@ -106,7 +111,8 @@ export default function FormActivity() {
           pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '',
           teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : '',
           buktiPinjam,
-          quantity
+          quantity,
+          note,
         },
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -197,6 +203,17 @@ export default function FormActivity() {
         >
           {dataUserList.listPemberi.map(el => <MenuItem value={`${el.email}$${el.team_id}`} key={el.email}>{`${el.email}---${el.nama}`}</MenuItem>)}
         </Select>
+        <InputLabel>Note</InputLabel>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="note"
+          name="note"
+          type='text'
+          value={note}
+          onChange={handleChangeNote}
+        />
         <InputLabel>Bukti Peminjam</InputLabel>
         <TextField
           margin="normal"

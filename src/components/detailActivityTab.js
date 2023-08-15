@@ -91,6 +91,11 @@ export default function DetailTab() {
           Dipinjam Pada {detailActivity.created_at ? `${detailActivity.created_at.split('.')[0].split('T')[0].split('-').reverse().join('/')} Pukul:  ${detailActivity.created_at.split('.')[0].split('T')[1].split('+')[0]}` : ''}
         </Typography>
       </Grid>
+      <Grid item xs={12} md={12}>
+        <Typography component="h1" variant="h5" align='center'>
+          Note:  {detailActivity.note}
+        </Typography>
+      </Grid>
     </Grid>
   );
 }
