@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Grid, ImageListItem, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Grid, ImageListItem, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -64,27 +64,33 @@ export default function DetailTab() {
         <Typography component="h1" variant="h5" align='center'>
           Foto Bukti Pinjam
         </Typography>
+        {detailActivity.bukti_pinjam ? 
         <ImageListItem>
           <img
-            src= {detailActivity.bukti_pinjam ? detailActivity.bukti_pinjam : 'https://indolearning.co.id/img/image-not-found-scaled-1150x647.png'}
-            srcSet= {detailActivity.bukti_pinjam ? detailActivity.bukti_pinjam : 'https://indolearning.co.id/img/image-not-found-scaled-1150x647.png'}
-            alt={detailActivity.nama ? detailActivity.nama : ''}
+            src= {detailActivity.bukti_pinjam}
+            srcSet= {detailActivity.bukti_pinjam}
+            alt={detailActivity.nama}
             loading="lazy"
-          />
-        </ImageListItem>
+            />
+          </ImageListItem>
+        : <Alert severity="warning">Tidak Ada Bukti Pinjam</Alert>
+        }
       </Grid>
       <Grid item xs={12} md={12} >
         <Typography component="h1" variant="h5" align='center'>
           Foto Bukti Terima
         </Typography>
+        {detailActivity.bukti_terima ? 
         <ImageListItem>
           <img
-            src= {detailActivity.bukti_terima ? detailActivity.bukti_terima : 'https://indolearning.co.id/img/image-not-found-scaled-1150x647.png'}
-            srcSet= {detailActivity.bukti_terima ? detailActivity.bukti_terima : 'https://indolearning.co.id/img/image-not-found-scaled-1150x647.png'}
-            alt={detailActivity.nama ? detailActivity.nama : ''}
+            src= {detailActivity.bukti_terima}
+            srcSet= {detailActivity.bukti_terima}
+            alt={detailActivity.nama}
             loading="lazy"
-          />
-        </ImageListItem>
+            />
+          </ImageListItem>
+        : <Alert severity="warning">Tidak Ada Bukti Terima</Alert>
+        }
       </Grid>
       <Grid item xs={12} md={12}>
         <Typography component="h1" variant="h5" align='center'>
