@@ -37,24 +37,6 @@ export default function SignUp() {
   const [teams, setTeams] = useState([]);
   const [timId, setTimId] = React.useState('');
   const [dataRegister, setDataRegister] = useState({});
-  // const checkToken = async () => {
-  //   try {
-  //     await axios({
-  //       method: 'GET',
-  //       url: 'http://localhost:3030/tools',
-  //       headers : {
-  //         Authorization: localStorage.getItem('access_token')
-  //       }
-  //     })
-  //     navigate('/tools');
-  //   } catch (error) {
-  //     navigate('/register');
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   checkToken();
-  // },[])
 
   const registerAPI = async () => {
     try {

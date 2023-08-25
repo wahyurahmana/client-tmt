@@ -4,46 +4,27 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const navigate = useNavigate();
-  const [dataLogin, setDataLogin] = useState({});
-  const checkToken = async () => {
-    try {
-      await axios({
-        method: 'GET',
-        url: `${process.env.REACT_APP_HOST_TMT_API}/tools`,
-        headers : {
-          Authorization: localStorage.getItem('access_token')
-        }
-      })
-      navigate('/tools');
-    } catch (error) {
-      navigate('/login');
-    }
-  }
+  const [dataEmail, setDataEmail] = useState({});
 
-  useEffect(() => {
-    checkToken();
-  },[])
-
-  const loginAPI = async () => {
+  const checkEmailAPI = async () => {
     try {
-      const result = await axios.post(`${process.env.REACT_APP_HOST_TMT_API}/login`,dataLogin);
-      localStorage.setItem('access_token', `Bearer ${result.data.token}`);
-      navigate('/tools')
-      return result;
+      await axios.post(`${process.env.REACT_APP_HOST_TMT_API}/forgot-password`,dataEmail);
+      Swal.fire(
+        'Terkirim!',
+        'Silahkan Check WhatsApp Anda',
+        'success'
+      )
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -56,12 +37,12 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    loginAPI();
+    checkEmailAPI();
   };
 
   const handleOnChange = (e) =>{
     const {name, value} = e.target
-    setDataLogin({...dataLogin, [name] : value});
+    setDataEmail({...dataEmail, [name] : value});
   }
 
   return (
@@ -80,7 +61,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Forgot Password
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -93,36 +74,14 @@ export default function SignIn() {
               autoFocus
               onChange={handleOnChange}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleOnChange}
-            />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Send
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link onClick={() => navigate('/check-email')} variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              {/* <Grid item>
-                <Link to="/register">
-                  Don't have an account? Sign Up
-                </Link>
-              </Grid> */}
-            </Grid>
           </Box>
         </Box>
       </Container>

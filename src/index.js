@@ -18,6 +18,8 @@ import FormEditTool from './components/formEditTool';
 import FormActivity from './components/formActivity';
 import ChangePassword from './components/changePassword';
 import DetailActivityTab from './components/detailActivityTab';
+import CheckEmail from './pages/checkEmail';
+import ForgotPassword from './pages/forgotPassword';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,12 @@ const router = createBrowserRouter([
   },{
     path: 'login',
     element: <SignInPage />
+  },{
+    path: 'check-email',
+    element: <CheckEmail />
+  },{
+    path: 'forgot-password/:token',
+    element : <ForgotPassword />
   },
 ]);
 
