@@ -79,13 +79,11 @@ export default function Dashboard() {
         }
       })
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+        text: "Something Error, please contact administrator",
+      });
       navigate('/login');
     }
   }
