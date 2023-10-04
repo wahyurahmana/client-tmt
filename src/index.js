@@ -7,10 +7,9 @@ import {
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ErrorPage from './pages/errorPage';
+// import ErrorPage from './pages/errorPage';
 import SignUpPage from './pages/signupPage';
 import SignInPage from './pages/signInPage';
-import Dashboard from './pages/dashboardPage';
 import ToolTab from './components/toolsTab';
 import ActivityTab from './components/activitiesTab';
 import FormTool from './components/formTool';
@@ -23,46 +22,37 @@ import ForgotPassword from './pages/forgotPassword';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Dashboard />,
-    children : [
-      {
-        index: true,
-        path: 'tools',
-        element : <ToolTab />
-      }, {
-        index: true,
-        path: 'tools/:toolId',
-        element : <FormEditTool />
-      }, {
-        path: 'activities',
-        element : <ActivityTab />
-      }, {
-        path: 'form-tool',
-        element : <FormTool />
-      }, {
-        path: 'form-activity',
-        element : <FormActivity />
-      }, {
-        path: 'change-password',
-        element : <ChangePassword />
-      }, {
-        path: 'detail-activity/:activityId',
-        element : <DetailActivityTab />
-      },
-    ],
-    errorElement: <ErrorPage />,
+    path: '/tools',
+    element : <ToolTab />
+  }, {
+    path: '/tools/:toolId',
+    element : <FormEditTool />
+  }, {
+    path: '/activities',
+    element : <ActivityTab />
+  }, {
+    path: '/form-tool',
+    element : <FormTool />
+  }, {
+    path: '/form-activity',
+    element : <FormActivity />
+  }, {
+    path: '/change-password',
+    element : <ChangePassword />
+  }, {
+    path: '/detail-activity/:activityId',
+    element : <DetailActivityTab />
   },{
-    path: 'register',
+    path: '/register',
     element: <SignUpPage />
   },{
-    path: 'login',
+    path: '/login',
     element: <SignInPage />
   },{
-    path: 'check-email',
+    path: '/check-email',
     element: <CheckEmail />
   },{
-    path: 'forgot-password/:token',
+    path: '/forgot-password/:token',
     element : <ForgotPassword />
   },
 ]);
