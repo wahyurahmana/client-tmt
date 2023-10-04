@@ -7,7 +7,6 @@ import axios from 'axios';
 export default function FormEditTool() {
   const navigate = useNavigate();
   const { toolId } = useParams();
-  // const [dataTool, setDataTool] = React.useState({});
   const [detailTool, setDetailTool] = React.useState({});
   const [namaTool, setNamaTool] = React.useState('');
   const [stockAlat, setStockAlat] = React.useState('');
@@ -38,16 +37,12 @@ export default function FormEditTool() {
       setNamaTool(result.data.data.tool.nama);
       setStockAlat(result.data.data.tool.stock);
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 
@@ -69,16 +64,12 @@ export default function FormEditTool() {
       });
       navigate('/tools');
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 

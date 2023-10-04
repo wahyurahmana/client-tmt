@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
-// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -55,9 +54,8 @@ export default function SignUp() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+        text: "Something Error, please contact administrator",
+      });
     }
   }
   
@@ -70,9 +68,8 @@ export default function SignUp() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+        text: "Something Error, please contact administrator",
+      });
     }
   }
   

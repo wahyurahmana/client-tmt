@@ -5,13 +5,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Alert, Avatar, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { Alert, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from './modalView'
-import InfoIcon from '@mui/icons-material/Info';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
 
 function CustomTabPanel(props) {
@@ -47,15 +46,6 @@ function a11yProps(index) {
   };
 }
 
-// function StatusChecked({status, idActivity}) {
-//   if(status){
-//     return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)} defaultChecked/>Selesai</>
-//   }else{
-//     return <>Pending<Switch onChange={(e) => changeStatusActivityAPI(idActivity, e.target.checked)}/>Selesai</>
-//   }
-// }
-
-
 export default function ActivityTab() {
   const navigate = useNavigate();
   const [listPinjaman, setListPinjaman] = useState([])
@@ -80,16 +70,12 @@ export default function ActivityTab() {
       setListInitPinjaman(result.data.data.listPinjaman);
       setListInitDipinjam(result.data.data.listDipinjam);
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 
@@ -119,16 +105,12 @@ export default function ActivityTab() {
         )
       }
     }).catch((error) => {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     })
 }
 

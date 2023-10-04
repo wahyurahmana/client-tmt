@@ -32,16 +32,12 @@ export default function ChangePassword() {
       Swal.fire(result.data.message);
       navigate('/tools');
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      } 
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react'
-import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
@@ -28,16 +27,12 @@ export default function ToolTab() {
       setDataTools(result.data.data.tools);
       setDataToolsInit(result.data.data.tools)
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 
@@ -67,16 +62,12 @@ export default function ToolTab() {
           )
         }
       }).catch((error) => {
-        if(error.response.status === 401){
-          navigate('/login')
-        }else{
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.response.data.message,
-            footer: '<a href="">Why do I have this issue?</a>'
-          });
-        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Something Error, please contact administrator",
+        });
+        navigate('/login')
       })
   }
   useEffect(() => {

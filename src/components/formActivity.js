@@ -31,16 +31,12 @@ export default function FormActivity() {
       });
       setDataTools(result.data.data.tools);
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
   const getDataUserListAPI = async () => {
@@ -57,9 +53,9 @@ export default function FormActivity() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
 
@@ -98,9 +94,7 @@ export default function FormActivity() {
 
   const handleSubmitActivity = async (e) => {
     try {
-      e.preventDefault();
-      // console.log({toolId: idTool, createdAt, quantity, peminjamEmail: peminjam.split('$').length === 2 ? peminjam.split('$')[0] : '', teamPeminjam: peminjam.split('$').length === 2 ? peminjam.split('$')[1] : '', pemberiEmail: pemberi.split('$').length === 2 ? pemberi.split('$')[0] : '', teamPemberi: pemberi.split('$').length === 2 ? pemberi.split('$')[1] : ''});
-      await axios({
+      e.preventDefault();await axios({
         method : 'POST',
         url: `${process.env.REACT_APP_HOST_TMT_API}/activities`,
         data: {
@@ -121,16 +115,12 @@ export default function FormActivity() {
       });
       navigate('/activities');
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
   return (

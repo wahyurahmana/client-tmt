@@ -41,9 +41,8 @@ async function changeStatusActivityAPI(id, status, buktiTerima, toolId, quantity
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: error.response.data.message,
-      footer: '<a href="">Why do I have this issue?</a>'
-    })
+      text: "Something Error, please contact administrator",
+    });
   }
 }
 
@@ -87,14 +86,6 @@ export default function BasicModal({status, idActivity, toolId, quantity}) {
             }}
           />
           *File Tidak Boleh Lebih Dari 5 MB
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            TAMBAH
-          </Button> */}
         </Box>
       </Modal>
     </div>

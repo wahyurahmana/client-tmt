@@ -29,9 +29,8 @@ export default function SignIn() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.message,
-        footer: '<a href="">Why do I have this issue?</a>'
-      })
+        text: "Something Error, please contact administrator",
+      });
     }
   }
 

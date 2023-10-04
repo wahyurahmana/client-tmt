@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Alert, Box, Button, Grid, ImageListItem, TextField, Typography } from '@mui/material';
+import { Alert, Grid, ImageListItem, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -20,20 +20,14 @@ export default function DetailTab() {
           Authorization : localStorage.getItem('access_token')
         }
       })
-      console.log(result.data.data.activity);
       setDetailActivity(result.data.data.activity)
-      console.log(detailActivity);
     } catch (error) {
-      if(error.response.status === 401){
-        navigate('/login')
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: error.response.data.message,
-          footer: '<a href="">Why do I have this issue?</a>'
-        });
-      }
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Something Error, please contact administrator",
+      });
+      navigate('/login')
     }
   }
   React.useEffect(() => {
